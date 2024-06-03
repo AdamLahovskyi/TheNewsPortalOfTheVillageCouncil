@@ -12,3 +12,4 @@ if(isset($_GET['route'])){
 }
 $router = new core\Router($route);
 $router->run();
+$router->done();
