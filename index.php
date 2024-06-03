@@ -10,6 +10,8 @@ if(isset($_GET['route'])){
 }else{
     $route ='';
 }
-$router = new core\Router($route);
-$router->run();
-$router->done();
+
+$core = \core\Core::get();
+$core->run($route);
+$core->done();
+

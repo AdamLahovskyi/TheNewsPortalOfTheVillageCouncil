@@ -1,3 +1,11 @@
+<?php
+/** @var string $Title */
+/** @var string $Content */
+if (empty($Title)){
+    $Title = '';
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +55,7 @@
 </div>
 <div class="container">
     <h1><?=$Title?></h1>
-    <?=$Content?>
+    <?= $Content?>
 </div>
 <div class="container">
     <footer class="py-3 my-4">
