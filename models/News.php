@@ -14,5 +14,5 @@ use core\Core;
  */
 class News extends Model
 {
-    public $table = 'news';
+    public static $tableName = 'news';
 }
