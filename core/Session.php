@@ -6,7 +6,7 @@ class Session
 {
     public function set($name, $value)
     {
-        $_SESSION["name"]=$value;
+        $_SESSION[$name]=$value;
     }
     public function setValues($assocArray)
     {
