@@ -2,15 +2,17 @@
 
 namespace models;
 
-class News
-{
-    public $id;
-    public $title;
-    public $text;
-    public $short_text;
-    public $date;
-    public function __constructor()
-    {
+use core\Model;
+use core\Core;
 
-    }
+/**
+ * @property string $title News Title
+ * @property string $text News Text
+ * @property string $short_text Short News Text
+ * @property string $date Date
+ * @property int $id News ID
+ */
+class News extends Model
+{
+    public $table = 'news';
 }

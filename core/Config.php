@@ -22,7 +22,6 @@ class Config
             foreach ($config as $key => $value){
                 $this->$key = $value;
             }
-            var_dump($config);
         }
     }
     public static function get()

@@ -9,11 +9,17 @@ class Core
     public $actionName;
     public $router;
     public $template;
+    public $db;
     private static $instance;
 
     private function __construct()
     {
         $this->template = new Template($this->deafultLayoutPath);
+        $host = Config::get()->dbHost;
+        $name = Config::get()->dbName;
+        $login = Config::get()->dbLogin;
+        $password = Config::get()->dbPassword;
+        $this->db = new DB($host, $name, $login, $password);
     }
 
     public function run($route)

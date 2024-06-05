@@ -55,7 +55,7 @@ if (empty($Title)){
 </div>
 <div class="container">
     <h1><?=$Title?></h1>
-    <?= $Content?>
+    <?=$Content?>
 </div>
 <div class="container">
     <footer class="py-3 my-4">
