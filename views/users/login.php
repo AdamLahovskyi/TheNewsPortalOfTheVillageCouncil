@@ -1,5 +1,6 @@
 <?php
-$this->Title = 'Login'
+/** @var string $error_message Error Message*/
+$this->Title = 'Sign In'
 ?>
 <form method="post" action="">
     <?php if(!empty($error_message)) :?>
