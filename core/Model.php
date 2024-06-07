@@ -33,15 +33,14 @@ class Model
         Core::get()->db->delete(static::$tableName, $conditionAssocArray);
     }
 
-    public static function findById($id)
+    public static function findByID($id)
     {
         $arr = Core::get()->db->select(static::$tableName, '*', [static::$primaryKey => $id]);
-        if (count($arr) > 0) {
+        if (count($arr) > 0)
             return $arr[0];
-        } else {
-            return null;
-        }
+        else return null;
     }
+
 
     public static function findByCondition($conditionAssocArray)
     {

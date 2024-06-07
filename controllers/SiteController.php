@@ -16,4 +16,5 @@ class SiteController extends Controller
     {
         echo $code;
     }
+
 }

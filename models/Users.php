@@ -55,4 +55,13 @@ class Users extends \core\Model
         $user->firstname=$firstname;
         $user->save();
     }
+    public static function GetLoggedInUser()
+    {
+        if (!self::IsUserLogged()) {
+            return null;
+        }
+
+        return Core::get()->session->get('user');
+    }
+
 }

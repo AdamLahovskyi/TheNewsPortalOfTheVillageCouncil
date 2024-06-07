@@ -55,9 +55,8 @@ $core = core\Core::get();
                             <img src="../../files/user_image.jpg" alt="user_image" width="32" height="32" class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu text-small">
-                            <li><a class="dropdown-item" href="#">New project...</a></li>
-                            <li><a class="dropdown-item" href="#">Settings</a></li>
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="/news/add">Add News</a></li>
+                            <li><a class="dropdown-item" href="/users/profile">Profile</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -75,14 +74,7 @@ $core = core\Core::get();
 <div class="container">
     <footer class="py-3 my-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-            <?php
-            $categories = $core->db->select('categories', '*');
-            if ($categories) {
-                foreach ($categories as $category) {
-                    echo '<li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">' . htmlspecialchars($category['name']) . '</li>';
-                }
-            }
-            ?>
+            <li class="nav-item"><a class="nav-link px-2 text-body-secondary">Course Work #3. 'PHP The News Portal Of The Village Council' CMS</li>
         </ul>
         <p class="text-center text-body-secondary">© 2024 Adam Lahovskyi</p>
     </footer>

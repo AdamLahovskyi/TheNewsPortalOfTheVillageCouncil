@@ -12,6 +12,28 @@ class NewsController extends Controller
 {
     public function actionAdd()
     {
+        if ($this->isPost) {
+            $this->clearErrorMessage();
+
+            $title = $this->post->title ?? '';
+            $text = $this->post->text ?? '';
+            $short_text = $this->post->short_text ?? '';
+            $isFeatured = $this->post->isFeatured ?? '';
+
+            if (empty($title)) {
+                $this->addErrorMessage('Title Can`t Be Empty');
+            }
+            if (empty($text)) {
+                $this->addErrorMessage('Description Can`t Be Empty');
+            }
+            if (empty($short_text)) {
+                $this->addErrorMessage('Short Description Can`t Be Empty');
+            }
+            if (!$this->isErrorMessagesExists()) {
+                News::AddNews($this->post->title, $this->post->text, $this->post->short_text, date("Y-m-d"), $this->post->isFeatured);
+                return $this->redirect('/news/addsuccess');
+            }
+        }
         return $this->render();
     }
     public function actionIndex()
@@ -26,8 +48,13 @@ class NewsController extends Controller
     {
         return $this->render();
     }
-    public function actionView($params)
+    public function actionAddsuccess()
     {
         return $this->render();
     }
+    public function actionView()
+    {
+        return $this->render();
+    }
+
 }

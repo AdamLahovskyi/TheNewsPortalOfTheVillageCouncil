@@ -1,6 +1,8 @@
 <?php
+$core = core\Core::get();
+/** @var string $id */
+
+var_dump($id);
 ?>
 
-<h1>
-    news/view
-</h1>
+

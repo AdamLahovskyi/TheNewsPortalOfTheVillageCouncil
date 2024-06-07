@@ -66,7 +66,7 @@ class UsersController extends Controller
             if (empty($lastname)) {
                 $this->addErrorMessage('Lastname Can`t Be Empty');
             }
-            if(!$this->isErrorMessagesExists()){
+            if (!$this->isErrorMessagesExists()) {
                 Users::RegisterUser($this->post->login, $this->post->password, $this->post->lastname, $this->post->firstname);
                 return $this->redirect('/users/registersuccess');
             }
@@ -74,10 +74,21 @@ class UsersController extends Controller
         return $this->render();
     }
 
+    public function actionProfile()
+    {
+        $user = Users::GetLoggedInUser(); //user is an array
+        if (!$user) {
+            return $this->redirect('/users/login');
+        }
+        return $this->render();
+    }
+
+
     public function actionRegistersuccess()
     {
         return $this->render();
     }
+
     public function actionLogout()
     {
         Users::LogoutUser();
