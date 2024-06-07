@@ -3,8 +3,8 @@
 use core\DB;
 
 $core = core\Core::get();
-$this->Title='Latest News';
-$newsItems = $core->db->select('news', '*', ['date' => date("Y-m-d")]);
+$this->Title='News Archive';
+$newsItems = $core->db->select('news', '*', null, 'id DESC');
 
 ?>
 <div class="container">

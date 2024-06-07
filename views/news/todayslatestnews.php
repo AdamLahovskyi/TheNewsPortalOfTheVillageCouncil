@@ -1,5 +1,5 @@
 <?php
-$this->Title = 'Main Page';
+$this->Title = 'Latest News';
 
 use core\DB;
 

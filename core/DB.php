@@ -42,7 +42,7 @@ class DB
     }
 
 
-    public function select($table, $fields = "*", $where = null, $limit = null, $offset = null)
+    public function select($table, $fields = "*", $where = null, $order=null, $limit = null, $offset = null)
     {
         try {
             $fields_string = $this->fieldsImplode($fields);
@@ -53,6 +53,10 @@ class DB
                 $where_string = $this->where($where);
                 $sql .= " WHERE {$where_string}";
                 $params = array_merge($params, $where);
+            }
+
+            if ($order) {
+                $sql .= " ORDER BY {$order}";
             }
 
             if ($limit) {

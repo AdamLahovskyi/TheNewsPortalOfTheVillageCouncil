@@ -37,8 +37,8 @@ $core = core\Core::get();
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="/news/todayslatestnews" class="nav-link px-2 link-body-emphasis">Today`s News</a></li>
                     <li><a href="/" class="nav-link px-2 link-secondary">Main Page</a></li>
+                    <li><a href="/news/todayslatestnews" class="nav-link px-2 link-body-emphasis">Latest News</a></li>
                     <?php if (!Users::IsUserLogged()) : ?>
                         <li><a href="/users/login" class="nav-link px-2 link-body-emphasis">Sign In</a></li>
                         <li><a href="/users/register" class="nav-link px-2 link-body-emphasis">Sign Up</a></li>
