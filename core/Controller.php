@@ -31,10 +31,16 @@ class Controller
         $this->errorMessages = [];
     }
 
-    public function render($pathToView = null): array
+    public function render($view = null, $data = []): array
     {
-        if (!empty($pathToView)) {
+        if (!empty($view)) {
+            $module = Core::get()->moduleName;
+            $pathToView = "views/{$module}/{$view}.php";
             $this->template->setTemplateFilePath($pathToView);
+        }
+
+        foreach ($data as $key => $value) {
+            $this->template->setParam($key, $value);
         }
 
         return [
@@ -42,7 +48,7 @@ class Controller
         ];
     }
 
-    public function redirect($path):void
+    public function redirect($path): void
     {
         header("Location: {$path}");
         die;
@@ -54,13 +60,14 @@ class Controller
         $this->template->setParam('error_message', implode('<br/>', $this->errorMessages));
     }
 
-    public function clearErrorMessage():void
+    public function clearErrorMessage(): void
     {
         $this->errorMessages = [];
         $this->template->setParam('error_message', null);
     }
+
     public function isErrorMessagesExists(): bool
     {
-        return count($this->errorMessages)>0;
+        return count($this->errorMessages) > 0;
     }
 }

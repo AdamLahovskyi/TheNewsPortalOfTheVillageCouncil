@@ -22,6 +22,10 @@ class NewsController extends Controller
     {
         return $this->render();
     }
+    public function actionCategory()
+    {
+        return $this->render();
+    }
     public function actionView($params)
     {
         return $this->render();
