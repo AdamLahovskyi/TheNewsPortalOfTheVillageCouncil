@@ -30,7 +30,7 @@ class NewsController extends Controller
                 $this->addErrorMessage('Short Description Can`t Be Empty');
             }
             if (!$this->isErrorMessagesExists()) {
-                News::AddNews($this->post->title, $this->post->text, $this->post->short_text, date("Y-m-d"), $this->buildUserFullName(), $this->post->isFeatured);
+                News::AddNews($this->post->title, $this->post->text, $this->post->short_text, date("Y-m-d"), Users::GetLoggedInUser()['login'], $this->post->isFeatured);
                 return $this->redirect('/news/addsuccess');
             }
         }

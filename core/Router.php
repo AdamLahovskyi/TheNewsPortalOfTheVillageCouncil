@@ -19,10 +19,10 @@ class Router
         if(count($parts)==1){
             $parts[1] = 'index';
         }
-        \core\Core::get()->moduleName  = $parts[0];
-        \core\Core::get()->actionName  = $parts[1];
+        Core::get()->moduleName  = $parts[0];
+        Core::get()->actionName  = $parts[1];
         if(isset($parts[2])){
-            \core\Core::get()->id  = $parts[2];
+            Core::get()->id  = $parts[2];
         }
 
 
@@ -43,12 +43,9 @@ class Router
         else{
             $this->error(404) ;
         }
+        return null;
     }
-    public function done()
-    {
-
-    }
-    public function error($code)
+    public function error($code): void
     {
         http_response_code($code);
         switch ($code){
