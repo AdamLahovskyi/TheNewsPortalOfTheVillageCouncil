@@ -11,7 +11,14 @@ class SiteController extends Controller
     {
         return $this->render();
     }
-
+    public function actionPagination()
+    {
+        return $this->render();
+    }
+    public function actionSearchresult()
+    {
+        return $this->render();
+    }
     public function actionError($code)
     {
         echo $code;

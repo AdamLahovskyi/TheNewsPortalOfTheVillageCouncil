@@ -6,6 +6,7 @@ class Core
 {
     public $deafultLayoutPath = 'views/layouts/index.php';
     public $moduleName;
+    public $id;
     public $actionName;
     public $router;
     public $template;

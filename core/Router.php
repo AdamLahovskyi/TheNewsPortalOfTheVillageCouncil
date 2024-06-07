@@ -21,6 +21,10 @@ class Router
         }
         \core\Core::get()->moduleName  = $parts[0];
         \core\Core::get()->actionName  = $parts[1];
+        if(isset($parts[2])){
+            \core\Core::get()->id  = $parts[2];
+        }
+
 
         $controller = 'controllers\\'.ucfirst($parts[0]).'Controller';
         $method = 'action'.ucfirst($parts[1]);
@@ -39,7 +43,6 @@ class Router
         else{
             $this->error(404) ;
         }
-
     }
     public function done()
     {

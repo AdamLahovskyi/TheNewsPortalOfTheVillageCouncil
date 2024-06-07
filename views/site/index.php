@@ -5,7 +5,6 @@ use core\DB;
 $core = core\Core::get();
 $this->Title='News Archive';
 $newsItems = $core->db->select('news', '*', null, 'id DESC');
-
 ?>
 <div class="container">
     <div class="col-md-100%">

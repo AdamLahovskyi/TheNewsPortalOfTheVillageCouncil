@@ -42,7 +42,7 @@ class DB
     }
 
 
-    public function select($table, $fields = "*", $where = null, $order=null, $limit = null, $offset = null)
+    public function select($table, $fields = "*", $where = null, $order = null, $limit = null, $offset = null, $fetch=null)
     {
         try {
             $fields_string = $this->fieldsImplode($fields);
@@ -59,29 +59,50 @@ class DB
                 $sql .= " ORDER BY {$order}";
             }
 
-            if ($limit) {
+            if ($limit !== null) {
                 $sql .= " LIMIT :limit";
                 $params['limit'] = (int)$limit;
             }
 
-            if ($offset) {
+            if ($offset !== null) {
                 $sql .= " OFFSET :offset";
                 $params['offset'] = (int)$offset;
+                $sth = $this->pdo->prepare($sql);
+
+                foreach ($params as $key => $value) {
+                    $sth->bindValue(":{$key}", $value, \PDO::PARAM_INT); // type int
+                }
+
+                $sth->execute();
+                return $sth->fetchAll();
+            }else{
+                $sth = $this->pdo->prepare($sql);
+
+                foreach ($params as $key => $value) {
+                    $sth->bindValue(":{$key}", $value);
+                }
+
+                $sth->execute();
+                return $sth->fetchAll();
             }
-
-            $sth = $this->pdo->prepare($sql);
-
-            foreach ($params as $key => $value) {
-                $sth->bindValue(":{$key}", $value);
-            }
-
-            $sth->execute();
-            return $sth->fetchAll();
         } catch (\PDOException $e) {
             throw new \Exception("Database Query Error: " . $e->getMessage());
         }
     }
 
+    public function selectById($table, $id, $fields = "*")
+    {
+        try {
+            $fields_string = $this->fieldsImplode($fields);
+            $sql = "SELECT {$fields_string} FROM {$table} WHERE id = :id";
+            $sth = $this->pdo->prepare($sql);
+            $sth->bindValue(":id", $id, \PDO::PARAM_INT);
+            $sth->execute();
+            return $sth->fetch();
+        } catch (\PDOException $e) {
+            throw new \Exception("Database Query Error: " . $e->getMessage());
+        }
+    }
 
     public function delete($table, $where)
     {

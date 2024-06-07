@@ -44,9 +44,8 @@ $core = core\Core::get();
                         <li><a href="/users/register" class="nav-link px-2 link-body-emphasis">Sign Up</a></li>
                     <?php endif; ?>
                 </ul>
-
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+                <form action="/site/searchresult" method="GET" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                    <input type="search" name="q" class="form-control" placeholder="Search..." aria-label="Search">
                 </form>
                 <?php if (Users::IsUserLogged()) : ?>
                     <div class="dropdown text-end">
