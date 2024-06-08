@@ -87,9 +87,11 @@ class Users extends \core\Model
     public static function GetLoggedInUser()
     {
         if (!self::IsUserLogged()) {
+
             return null;
         }
-        return Core::get()->db->selectById('users', Core::get()->session->get('user')->id);
+        $asd = Core::get()->session->get('user');
+        return Core::get()->db->selectById('users', Core::get()->session->get('user')['id']);
     }
 
 }

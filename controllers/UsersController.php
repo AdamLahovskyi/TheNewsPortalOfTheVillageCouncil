@@ -121,8 +121,7 @@ class UsersController extends Controller
 
     public function actionProfile()
     {
-        $user = Users::GetLoggedInUser();
-        if (!$user) {
+        if (!Users::IsUserLogged()) {
             return $this->redirect('/users/login');
         }
         return $this->render();
