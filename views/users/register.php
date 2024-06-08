@@ -28,5 +28,9 @@ $this->Title = 'Sign Up';
         <label for="inputLastname" class="form-label">Last Name</label>
         <input value="<?= $this->controller->post->lastname ?>" name="lastname" type="text" class="form-control" id="inputLastname">
     </div>
+    <div class="mb-3">
+        <label for="inputProfilePicture" class="form-label">Profile Picture</label>
+        <input name="picture" type="file" class="form-control" id="inputProfilePicture" accept="image/*">
+    </div>
     <button type="submit" class="btn btn-primary">Sign Up</button>
 </form>

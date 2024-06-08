@@ -1,7 +1,13 @@
 <?php
+use models\Users;
+$this->Title = 'Search Results';
 $core = core\Core::get();
-$this->Title = 'News Archive';
-$newsItems = $core->db->select('news', '*', null, 'id DESC');
+$searchParam = $_POST['search'];
+try {
+    $newsItems = $core->db->searchNews($searchParam, '*', 'date DESC');
+} catch (Exception $e) {
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,12 +15,26 @@ $newsItems = $core->db->select('news', '*', null, 'id DESC');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $this->Title; ?></title>
-    <link rel="stylesheet" href="views/styles/isFeatured.css">
+    <link rel="stylesheet" href="views/styles/isFeatured">
 </head>
+<style>
+    .badge-featured {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 5px 10px;
+        background-color: gold;
+        color: black;
+        font-weight: bold;
+        border-radius: 3px;
+        z-index: 1000;
+        box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+</style>
 <body>
 <div class="container">
     <div class="col-md-100%">
-        <h1>News Archive</h1>
+        <h1>Search Results</h1>
         <?php if ($newsItems): ?>
             <?php foreach ($newsItems as $newsItem): ?>
                 <div class="card mb-3" style="width: 100%; position: relative;">
@@ -31,10 +51,12 @@ $newsItems = $core->db->select('news', '*', null, 'id DESC');
             <?php endforeach; ?>
         <?php else: ?>
             <div class="alert alert-danger" role="alert">
-                No News For Today((
+                No News Found((
             </div>
         <?php endif; ?>
     </div>
 </div>
 </body>
 </html>
+
+

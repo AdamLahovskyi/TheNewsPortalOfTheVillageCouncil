@@ -4,6 +4,7 @@ namespace models;
 
 use core\Core;
 use core\Model;
+use models\Images;
 
 /**
  * @property int $id Id
@@ -34,6 +35,16 @@ class Users extends \core\Model
             return null;
         }
     }
+    public static function UpdateUser($user)
+    {
+        $db = Core::get()->db;
+        $db->update(self::$tableName, [
+            'login' => $user['login'],
+            'firstname' => $user['firstname'],
+            'lastname' => $user['lastname']
+        ], ['id' => $user['id']]);
+    }
+
     public static function IsUserLogged()
     {
         return !empty(Core::get()->session->get('user'));
@@ -49,6 +60,7 @@ class Users extends \core\Model
     public static function RegisterUser($login, $password, $lastname, $firstname)
     {
         $user = new Users();
+        $image = new Images();
         $user->login=$login;
         $user->password=$password;
         $user->lastname=$lastname;

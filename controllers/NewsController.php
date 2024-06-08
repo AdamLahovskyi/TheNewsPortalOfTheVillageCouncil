@@ -14,7 +14,6 @@ class NewsController extends Controller
     {
         if ($this->isPost) {
             $this->clearErrorMessage();
-
             $title = $this->post->title ?? '';
             $text = $this->post->text ?? '';
             $short_text = $this->post->short_text ?? '';
@@ -58,6 +57,14 @@ class NewsController extends Controller
         return $this->render();
     }
     public function actionView()
+    {
+        return $this->render();
+    }
+    public function actionSearchresult()
+    {
+        return $this->render();
+    }
+    public function actionEditNews()
     {
         return $this->render();
     }

@@ -5,6 +5,7 @@ namespace controllers;
 use core\Controller;
 use core\Core;
 use core\Template;
+use models\Images;
 use models\News;
 use models\Users;
 
@@ -25,6 +26,44 @@ class UsersController extends Controller
             }
         }
         return $this->render();
+    }
+
+    public function actionEditProfile()
+    {
+        $user = Users::GetLoggedInUser();
+        if (!$user) {
+            return $this->redirect('/users/login');
+        }
+        return $this->render();
+    }
+    public function actionUpdateProfile()
+    {
+        if ($this->isPost) {
+            $user = Users::GetLoggedInUser();
+            if (!$user) {
+                return $this->redirect('/users/login');
+            }
+
+            $login = $this->post->login ?? '';
+            $firstname = $this->post->firstname ?? '';
+            $lastname = $this->post->lastname ?? '';
+
+            if (empty($login) || empty($firstname) || empty($lastname)) {
+                $this->addErrorMessage('All fields are required');
+                return $this->render('views/users/editprofile.php');
+            }
+
+            $user['login'] = $login;
+            $user['firstname'] = $firstname;
+            $user['lastname'] = $lastname;
+
+            Users::UpdateUser($user);
+
+            Users::LoginUser($user);
+
+            return $this->redirect('/users/profile');
+        }
+        return $this->render('views/users/editprofile.php');
     }
 
     public function actionRegister()
@@ -68,6 +107,7 @@ class UsersController extends Controller
             }
             if (!$this->isErrorMessagesExists()) {
                 Users::RegisterUser($this->post->login, $this->post->password, $this->post->lastname, $this->post->firstname);
+                Images::RegisterImage($this->post->picture, $this->post->news_id, 'pfp');
                 return $this->redirect('/users/registersuccess');
             }
         }

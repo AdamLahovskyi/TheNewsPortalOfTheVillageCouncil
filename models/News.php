@@ -29,4 +29,14 @@ class News extends Model
         $news->isFeatured=$isFeatured;
         $news->save();
     }
+    public static function updateNews($news)
+    {
+        $db = Core::get()->db;
+        $db->update(self::$tableName, [
+            'title' => $news['login'],
+            'text' => $news['text'],
+            'short_text' => $news['short_text'],
+            'isFeatured' => $news['isFeatured'],
+        ], ['id' => $news['id']]);
+    }
 }

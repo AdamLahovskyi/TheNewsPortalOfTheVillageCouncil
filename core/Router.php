@@ -24,7 +24,9 @@ class Router
         if(isset($parts[2])){
             Core::get()->id  = $parts[2];
         }
-
+        if(isset($parts[2])){
+            Core::get()->searchResult  = $parts[2];
+        }
 
         $controller = 'controllers\\'.ucfirst($parts[0]).'Controller';
         $method = 'action'.ucfirst($parts[1]);

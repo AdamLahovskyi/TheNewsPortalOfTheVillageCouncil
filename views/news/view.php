@@ -1,5 +1,4 @@
 <?php
-
 use models\Users;
 
 $core = core\Core::get();
@@ -30,10 +29,9 @@ $newsItem = $core->db->selectById('news', $id, '*');
             <?php endif; ?>
             <a href="/" class="btn btn-primary mt-3">Back to News</a>
             <?php
-                if(Users::IsUserLogged())
-                    if($newsItem['posted_by'] == Users::GetLoggedInUser()['login']):
-            ?>
-            <a href="#" class="btn btn-primary mt-3">Edit</a>
+            if(Users::IsUserLogged() && $newsItem['posted_by'] == Users::GetLoggedInUser()['login']): // Check if user is logged in and news belongs to the logged-in user
+                ?>
+                <a href="/news/edit/<?php echo $id; ?>" class="btn btn-primary mt-3">Edit</a> <!-- Link to the news edit page -->
             <?php endif; ?>
 
         </div>

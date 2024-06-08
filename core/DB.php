@@ -121,10 +121,10 @@ class DB
         $where_string = $this->where($where);
         $set_array = [];
         foreach ($row_to_update as $key => $value) {
-            $set_array [] = "$key =:{$key}";
+            $set_array[] = "{$key} = :{$key}";
         }
         $set_string = implode(", ", $set_array);
-        $sql = "UPDATE {$table} SET {$set_string} {$where_string}";
+        $sql = "UPDATE {$table} SET {$set_string} WHERE {$where_string}"; // Corrected line
         $sth = $this->pdo->prepare($sql);
         foreach ($where as $key => $value) {
             $sth->bindValue(":{$key}", $value);
@@ -135,6 +135,8 @@ class DB
         $sth->execute();
         return $sth->rowCount();
     }
+
+
     public function insert($table, $data)
     {
         try {
@@ -157,5 +159,43 @@ class DB
             throw new \Exception("Database Query Error: " . $e->getMessage());
         }
     }
+    public function searchNews($keyword, $fields = "*", $order = null, $limit = null, $offset = null)
+    {
+        try {
+            $fields_string = $this->fieldsImplode($fields);
+            $sql = "SELECT {$fields_string} FROM news WHERE (title LIKE :keyword OR text LIKE :keyword OR short_text LIKE :keyword)";
+            $params = ['keyword' => '%' . $keyword . '%'];
+
+            if ($order) {
+                $sql .= " ORDER BY {$order}";
+            }
+
+            if ($limit !== null) {
+                $sql .= " LIMIT :limit";
+                $params['limit'] = (int)$limit;
+            }
+
+            if ($offset !== null) {
+                $sql .= " OFFSET :offset";
+                $params['offset'] = (int)$offset;
+            }
+
+            $sth = $this->pdo->prepare($sql);
+
+            foreach ($params as $key => $value) {
+                if ($key === 'limit' || $key === 'offset') {
+                    $sth->bindValue(":{$key}", $value, \PDO::PARAM_INT);
+                } else {
+                    $sth->bindValue(":{$key}", $value, \PDO::PARAM_STR);
+                }
+            }
+
+            $sth->execute();
+            return $sth->fetchAll();
+        } catch (\PDOException $e) {
+            throw new \Exception("Database Query Error: " . $e->getMessage());
+        }
+    }
+
 
 }

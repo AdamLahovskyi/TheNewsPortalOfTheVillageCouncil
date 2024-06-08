@@ -35,7 +35,6 @@ $core = core\Core::get();
                         <use xlink:href="#bootstrap"></use>
                     </svg>
                 </a>
-
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li><a href="/" class="nav-link px-2 link-secondary">Main Page</a></li>
                     <li><a href="/news/todayslatestnews" class="nav-link px-2 link-body-emphasis">Latest News</a></li>
@@ -44,14 +43,16 @@ $core = core\Core::get();
                         <li><a href="/users/register" class="nav-link px-2 link-body-emphasis">Sign Up</a></li>
                     <?php endif; ?>
                 </ul>
-                <form action="/site/searchresult" method="GET" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                    <input type="search" name="q" class="form-control" placeholder="Search..." aria-label="Search">
+                <form action="/news/searchresult/" method="post" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+
+                    <input type="search" name="search" class="form-control" placeholder="Search..." aria-label="Search">
                 </form>
                 <?php if (Users::IsUserLogged()) : ?>
                     <div class="dropdown text-end">
                         <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="../../files/user_image.jpg" alt="user_image" width="32" height="32" class="rounded-circle">
+                            <img src="../../files/user_image.jpg" alt="user_image" width="32" height="32"
+                                 class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu text-small">
                             <li><a class="dropdown-item" href="/news/add">Add News</a></li>
@@ -73,7 +74,7 @@ $core = core\Core::get();
 <div class="container">
     <footer class="py-3 my-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-            <li class="nav-item"><a class="nav-link px-2 text-body-secondary">Course Work #3. 'PHP The News Portal Of The Village Council' CMS</li>
+            <li class="nav-item"><a class="nav-link px-2 text-body-secondary">Course Work #3. PHP 'The News Portal Of The Village Council' CMS</li>
         </ul>
         <p class="text-center text-body-secondary">© 2024 Adam Lahovskyi</p>
     </footer>
