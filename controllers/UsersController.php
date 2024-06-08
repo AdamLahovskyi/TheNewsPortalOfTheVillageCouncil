@@ -13,20 +13,24 @@ class UsersController extends Controller
 {
     public function actionLogin()
     {
-        if (Users::IsUserLogged()) {
+        if (Users::isUserLogged())
             return $this->redirect('/');
-        }
         if ($this->isPost) {
-            $user = Users::FindByLoginAndPassword($this->post->login, $this->post->password);
-            if (!empty($user)) {
-                Users::LoginUser($user);
-                return $this->redirect('/');
+            $user = Users::loginVerification($this->post->login, $this->post->password);
+
+            if (!is_string($user)) {
+                Users::loginUser($user);
+                $this->redirect('/');
+                die;
             } else {
-                $this->addErrorMessage('Wrong Login or Password');
+                $this->addErrorMessage($user);
+                return $this->render();
             }
         }
         return $this->render();
     }
+
+
 
     public function actionEditProfile()
     {
@@ -36,6 +40,7 @@ class UsersController extends Controller
         }
         return $this->render();
     }
+
     public function actionUpdateProfile()
     {
         if ($this->isPost) {
@@ -116,13 +121,12 @@ class UsersController extends Controller
 
     public function actionProfile()
     {
-        $user = Users::GetLoggedInUser(); //user is an array
+        $user = Users::GetLoggedInUser();
         if (!$user) {
             return $this->redirect('/users/login');
         }
         return $this->render();
     }
-
 
     public function actionRegistersuccess()
     {

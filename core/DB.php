@@ -124,7 +124,7 @@ class DB
             $set_array[] = "{$key} = :{$key}";
         }
         $set_string = implode(", ", $set_array);
-        $sql = "UPDATE {$table} SET {$set_string} WHERE {$where_string}"; // Corrected line
+        $sql = "UPDATE {$table} SET {$set_string} WHERE {$where_string}";
         $sth = $this->pdo->prepare($sql);
         foreach ($where as $key => $value) {
             $sth->bindValue(":{$key}", $value);

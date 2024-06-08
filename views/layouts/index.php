@@ -54,7 +54,7 @@ $core = core\Core::get();
                             <img src="../../files/user_image.jpg" alt="user_image" width="32" height="32"
                                  class="rounded-circle">
                         </a>
-                        <ul class="dropdown-menu text-small">
+                        <ul class="dropdown-menu text-small z-10000">
                             <li><a class="dropdown-item" href="/news/add">Add News</a></li>
                             <li><a class="dropdown-item" href="/users/profile">Profile</a></li>
                             <li>

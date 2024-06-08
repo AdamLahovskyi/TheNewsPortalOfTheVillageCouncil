@@ -31,7 +31,7 @@ $newsItem = $core->db->selectById('news', $id, '*');
             <?php
             if(Users::IsUserLogged() && $newsItem['posted_by'] == Users::GetLoggedInUser()['login']): // Check if user is logged in and news belongs to the logged-in user
                 ?>
-                <a href="/news/edit/<?php echo $id; ?>" class="btn btn-primary mt-3">Edit</a> <!-- Link to the news edit page -->
+                <a href="/news/editnews/<?php echo $id; ?>" class="btn btn-primary mt-3">Edit</a> <!-- Link to the news edit page -->
             <?php endif; ?>
 
         </div>

@@ -1,6 +1,7 @@
 <?php
 $this->Title = 'Edit Profile';
 $user = \models\Users::GetLoggedInUser();
+var_dump($user);
 ?>
 
 <div class="container mt-5">

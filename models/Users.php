@@ -26,6 +26,23 @@ class Users extends \core\Model
             return null;
         }
     }
+    public static function loginVerification($login, $password)
+    {
+        $searchCriteria = ['login' => $login];
+        $rows = self::findByCondition($searchCriteria);
+
+        if (!empty($rows)) {
+            $user = is_object($rows[0]) ? $rows[0] : (object)$rows[0];
+
+            if (isset($user->password) && password_verify($password, $user->password)) {
+                return $user;
+            } else {
+                return 'Wrong Password';
+            }
+        } else {
+            return 'No User Found';
+        }
+    }
     public static function FindByLogin($login)
     {
         $rows = self::findByCondition(['login' => $login]);
@@ -62,7 +79,7 @@ class Users extends \core\Model
         $user = new Users();
         $image = new Images();
         $user->login=$login;
-        $user->password=$password;
+        $user->password=password_hash($password, PASSWORD_DEFAULT);
         $user->lastname=$lastname;
         $user->firstname=$firstname;
         $user->save();
@@ -72,8 +89,7 @@ class Users extends \core\Model
         if (!self::IsUserLogged()) {
             return null;
         }
-
-        return Core::get()->session->get('user');
+        return Core::get()->db->selectById('users', Core::get()->session->get('user')->id);
     }
 
 }
