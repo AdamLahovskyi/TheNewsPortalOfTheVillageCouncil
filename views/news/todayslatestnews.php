@@ -21,5 +21,10 @@ $newsItems = $core->db->select('news', '*', ['date' => $today], 'id DESC');
                 </div>
             </div>
         <?php endforeach; ?>
+        <?php if(empty($newsItems)):?>
+            <div class="alert alert-danger mt-5" role="alert">
+                No News for Today.
+            </div>
+        <?php endif; ?>
     </div>
 </div>

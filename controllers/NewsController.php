@@ -18,8 +18,7 @@ class NewsController extends Controller
             $title = $this->post->title ?? '';
             $text = $this->post->text ?? '';
             $short_text = $this->post->short_text ?? '';
-            $isFeatured = $this->post->isFeatured ?? '';
-
+            $isFeatured = $this->post->isFeatured ?? '0';
             if (empty($title)) {
                 $this->addErrorMessage('Title Can`t Be Empty');
             }
@@ -30,7 +29,13 @@ class NewsController extends Controller
                 $this->addErrorMessage('Short Description Can`t Be Empty');
             }
             if (!$this->isErrorMessagesExists()) {
-                News::AddNews($this->post->title, $this->post->text, $this->post->short_text, date("Y-m-d"), Users::GetLoggedInUser()['login'], $this->post->isFeatured);
+                News::AddNews(
+                    $title,
+                    $text,
+                    $this->post->short_text,
+                    date("Y-m-d"),
+                    Users::GetLoggedInUser()['login'],
+                    $isFeatured);
                 return $this->redirect('/news/addsuccess');
             }
         }

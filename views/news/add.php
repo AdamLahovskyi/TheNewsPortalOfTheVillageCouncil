@@ -23,8 +23,8 @@ $this->Title = 'Add News';
     <div class="mb-3">
         <label for="isFeatured" class="form-label">Featured</label>
         <select class="form-control" id="isFeatured" name="isFeatured">
-            <option value="false">No</option>
-            <option value="true">Yes</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
         </select>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
