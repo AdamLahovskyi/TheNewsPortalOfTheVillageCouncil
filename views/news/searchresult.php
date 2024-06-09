@@ -15,22 +15,8 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $this->Title; ?></title>
-    <link rel="stylesheet" href="views/styles/isFeatured">
+    <link rel="stylesheet" href="/views/styles/isFeatured.css">
 </head>
-<style>
-    .badge-featured {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        padding: 5px 10px;
-        background-color: gold;
-        color: black;
-        font-weight: bold;
-        border-radius: 3px;
-        z-index: 1000;
-        box-shadow: 0 0 5px rgba(0,0,0,0.2);
-    }
-</style>
 <body>
 <div class="container">
     <div class="col-md-100%">

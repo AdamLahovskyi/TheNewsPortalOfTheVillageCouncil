@@ -44,7 +44,6 @@ $core = core\Core::get();
                     <?php endif; ?>
                 </ul>
                 <form action="/news/searchresult/" method="post" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-
                     <input type="search" name="search" class="form-control" placeholder="Search..." aria-label="Search">
                 </form>
                 <?php if (Users::IsUserLogged()) : ?>

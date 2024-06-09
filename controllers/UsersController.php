@@ -34,12 +34,13 @@ class UsersController extends Controller
 
     public function actionEditProfile()
     {
-        $user = Users::GetLoggedInUser();
+        $user = Core::get()->db->selectById('users', Core::get()->session->get('user')['id']);
         if (!$user) {
             return $this->redirect('/users/login');
         }
         return $this->render();
     }
+
 
     public function actionUpdateProfile()
     {

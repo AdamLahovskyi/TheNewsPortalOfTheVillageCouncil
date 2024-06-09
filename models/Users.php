@@ -4,6 +4,7 @@ namespace models;
 
 use core\Core;
 use core\Model;
+use Exception;
 use models\Images;
 
 /**
@@ -68,8 +69,9 @@ class Users extends \core\Model
     }
     public static function LoginUser($user)
     {
-        Core::get()->session->set('user', $user);
+        Core::get()->session->set('user', (array)$user);
     }
+
     public static function LogoutUser()
     {
         Core::get()->session->remove('user');
@@ -87,10 +89,8 @@ class Users extends \core\Model
     public static function GetLoggedInUser()
     {
         if (!self::IsUserLogged()) {
-
             return null;
         }
-        $asd = Core::get()->session->get('user');
         return Core::get()->db->selectById('users', Core::get()->session->get('user')['id']);
     }
 

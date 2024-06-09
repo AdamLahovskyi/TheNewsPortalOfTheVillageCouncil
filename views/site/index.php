@@ -1,8 +1,16 @@
 <?php
 $core = core\Core::get();
 $this->Title = 'News Archive';
-$newsItems = $core->db->select('news', '*', null, 'id DESC');
-var_dump(\models\Users::IsUserLogged());
+
+$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+$perPage = 10;
+$offset = ($page - 1) * $perPage;
+
+$newsItems = $core->db->select('news', '*', null, 'id DESC', $perPage, $offset);
+
+$totalNewsItems = $core->db->select('news', 'COUNT(*)')[0]['COUNT(*)'];
+
+$totalPages = ceil($totalNewsItems / $perPage);
 
 ?>
 <!DOCTYPE html>
@@ -11,7 +19,8 @@ var_dump(\models\Users::IsUserLogged());
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $this->Title; ?></title>
-    <link rel="stylesheet" href="views/styles/isFeatured.css">
+    <link rel="stylesheet" href="/views/styles/isFeatured.css">
+    <link rel="stylesheet" href="/views/styles/pagination.css">
 </head>
 <body>
 <div class="container">
@@ -31,6 +40,17 @@ var_dump(\models\Users::IsUserLogged());
                     </div>
                 </div>
             <?php endforeach; ?>
+            <div class="pagination">
+                <?php if ($page > 1): ?>
+                    <a href="?page=<?php echo $page - 1; ?>">Previous</a>
+                <?php endif; ?>
+                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                    <a href="?page=<?php echo $i; ?>" <?php if ($i === $page) echo 'class="current"'; ?>><?php echo $i; ?></a>
+                <?php endfor; ?>
+                <?php if ($page < $totalPages): ?>
+                    <a href="?page=<?php echo $page + 1; ?>">Next</a>
+                <?php endif; ?>
+            </div>
         <?php else: ?>
             <div class="alert alert-danger" role="alert">
                 No News For Today((
