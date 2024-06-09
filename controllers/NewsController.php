@@ -78,6 +78,10 @@ class NewsController extends Controller
     {
         return $this->render();
     }
+    public function actionFeatured()
+    {
+        return $this->render();
+    }
 
     public function actionUpdateNews()
     {

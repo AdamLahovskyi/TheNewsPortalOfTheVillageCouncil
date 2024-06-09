@@ -1,17 +1,21 @@
 <?php
-$core = core\Core::get();
-$this->Title = 'News Archive';
+$this->Title = 'Latest News';
 
+use core\DB;
+
+$core = core\Core::get();
+
+$today = date("Y-m-d");
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 $perPage = 10;
 $offset = ($page - 1) * $perPage;
 
-$newsItems = $core->db->select('news', '*', null, 'id DESC', $perPage, $offset);
-$totalNewsItems = $core->db->select('news', 'COUNT(*)')[0]['COUNT(*)'];
+$newsItems = $core->db->select('news', '*', ['isFeatured' => 1], 'id DESC', $perPage, $offset);
+
+$totalNewsItems = $core->db->select('news', 'COUNT(*)', ['isFeatured' => 1])[0]['COUNT(*)'];
 
 $pagination = core\Pagination::paginate($totalNewsItems, $page, $perPage);
 $totalPages = $pagination['total_pages']
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +29,7 @@ $totalPages = $pagination['total_pages']
 <body>
 <div class="container">
     <div class="col-md-100%">
-        <h1>News Archive</h1>
+        <h1>Featured News</h1>
         <?php if ($newsItems): ?>
             <?php foreach ($newsItems as $newsItem): ?>
                 <div class="card mb-3" style="width: 100%; position: relative;">
