@@ -2,7 +2,8 @@
 /** @var string $error_message Error Message*/
 $this->Title = 'Add News';
 ?>
-<form method="post" action="">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<form id="newsForm" method="post" action="">
     <?php if (!empty($error_message)) : ?>
         <div class="alert alert-danger" role="alert">
             <?= $error_message ?>
@@ -27,6 +28,32 @@ $this->Title = 'Add News';
             <option value="1">Yes</option>
         </select>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
 </form>
+<script>
+    $(document).ready(function() {
+        $('#newsForm').on('submit', function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: '/news/add',
+                data: $(this).serialize(), // Serialize the form data
+                success: function(response) {
+                    if (response.success) {
+                        window.location.href = '/news/addsuccess';
+                    } else {
+                        const errorMessage = response.error_message;
+                        $('.alert-danger').text(errorMessage).show();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    //AJAX error
+                    const errorMessage = xhr.responseText;
+                    $('.alert-danger').text(errorMessage).show();
+                }
+            });
+        });
+    });
+</script>
 
