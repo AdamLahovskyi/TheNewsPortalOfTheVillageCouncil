@@ -9,8 +9,11 @@ try {
     $newsItem = $core->db->selectById('news', $id, '*');
 } catch (Exception $e) {
 }
+var_dump($newsItem);
 ?>
-<form method="post" action="news/updatenews">
+
+<form action="/news/updatenews" method="POST" >
+    <input type="hidden" name="id" value="<?=$newsItem['id'] ?>">
     <?php if (!empty($error_message)) : ?>
         <div class="alert alert-danger" role="alert">
             <?= $error_message ?>
@@ -18,7 +21,7 @@ try {
     <?php endif; ?>
     <div class="mb-3">
         <label for="title" class="form-label">Title</label>
-        <input type="text" class="form-control" id="title" name="title" value="<?php echo htmlspecialchars($newsItem['title']); ?>">
+        <input type="text" class="form-control" id="title" name="title" value="<?php echo $newsItem['title']; ?>">
     </div>
     <div class="mb-4">
         <label for="text" class="block text-gray-700 text-sm font-bold mb-2">Description</label>
@@ -27,7 +30,7 @@ try {
 
     <div class="mb-3">
         <label for="short_text" class="form-label">Short Description</label>
-        <input type="text" value="<?php echo htmlspecialchars($newsItem['short_text']); ?>" class="form-control" id="short_text" name="short_text">
+        <input type="text" value="<?php echo $newsItem['short_text']; ?>" class="form-control" id="short_text" name="short_text">
     </div>
     <div class="mb-3">
         <label for="isFeatured" class="form-label">Featured</label>

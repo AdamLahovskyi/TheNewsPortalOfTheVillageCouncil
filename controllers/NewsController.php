@@ -82,38 +82,45 @@ class NewsController extends Controller
     {
         return $this->render();
     }
+    public function actionUpdateSuccess()
+    {
+        return $this->render();
+    }
 
     public function actionUpdateNews()
     {
+        var_dump(Core::get()->controllerObject->post);
         if ($this->isPost) {
             $this->clearErrorMessage();
             $newsId = $this->post->id;
+            var_dump($newsId);
             if ($newsId === null) {
                 $this->addErrorMessage('News ID is missing.');
-                return $this->render('news/edit');
+                return $this->render();
             }
             $news = News::findByID($newsId);
             if (!$news) {
                 $this->addErrorMessage('News not found.');
                 return $this->render('news/view/'.$newsId);
             }
-            $title = $news->post->title ?? '';
-            $text = $news->post->text ?? '';
-            $short_text = $news->post->short_text ?? '';
-            $isFeatured = $news->post->isFeatured ?? '0';
+
+            $title = $this->post->title ?? '';
+            $text = $this->post->text ?? '';
+            $short_text = $this->post->short_text ?? '';
+            $isFeatured = $this->post->isFeatured ?? '0';
 
             if (empty($title) || empty($text) || empty($short_text)) {
-                $this->addErrorMessage('All fields are required');
-                return $this->render('news/edit');
+                $this->addErrorMessage('All fields are required.');
+                return $this->render();
             }
-
             $news['title'] = $title;
             $news['text'] = $text;
             $news['short_text'] = $short_text;
             $news['isFeatured'] = $isFeatured;
 
             News::updateNews($news);
-            return $this->redirect('/news');
+
+            return $this->redirect('/news/updatesuccess');
         }
         return $this->render();
     }

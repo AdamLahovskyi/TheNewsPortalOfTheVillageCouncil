@@ -33,7 +33,7 @@ class News extends Model
     {
         $db = Core::get()->db;
         $db->update(self::$tableName, [
-            'title' => $news['login'],
+            'title' => $news['title'],
             'text' => $news['text'],
             'short_text' => $news['short_text'],
             'isFeatured' => $news['isFeatured'],
