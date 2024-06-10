@@ -71,6 +71,13 @@ class Users extends \core\Model
     {
         Core::get()->session->set('user', (array)$user);
     }
+    public static function UpdateUserPassword($user)
+    {
+        $db = Core::get()->db;
+        $db->update(self::$tableName, [
+            'password' => $user['password']
+        ], ['id' => $user['id']]);
+    }
 
     public static function LogoutUser()
     {

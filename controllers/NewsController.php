@@ -86,13 +86,17 @@ class NewsController extends Controller
     {
         return $this->render();
     }
+    public function actionMyNews()
+    {
+        return $this->render();
+    }
     public function actionDeleteNews()
     {
         if ($this->isPost) {
             $newsId = (int)$this->post->id;
             News::deleteNews($newsId);
         }
-        return $this->render();
+        return $this->redirect('/site/updatesuccess');
     }
 
     public function actionUpdateNews()
@@ -126,7 +130,7 @@ class NewsController extends Controller
 
             News::updateNews($news);
 
-            return $this->redirect('/news/updatesuccess');
+            return $this->redirect('/site/updatesuccess');
         }
         return $this->render();
     }

@@ -114,10 +114,46 @@ class UsersController extends Controller
             if (!$this->isErrorMessagesExists()) {
                 Users::RegisterUser($this->post->login, $this->post->password, $this->post->lastname, $this->post->firstname);
                 Images::RegisterImage($this->post->picture, $this->post->news_id, 'pfp');
-                return $this->redirect('/users/registersuccess');
+                return $this->redirect('/site/updatesuccess');
             }
         }
         return $this->render();
+    }
+
+    public function actionUpdatePassword()
+    {
+        if ($this->isPost) {
+            $user = Users::GetLoggedInUser();
+            if (!$user) {
+                return $this->redirect('/users/login');
+            }
+
+            $currentPassword = $this->post->current_password;
+            $newPassword = $this->post->new_password;
+            $confirmNewPassword = $this->post->confirm_new_password;
+
+            if (empty($currentPassword) || empty($newPassword) || empty($confirmNewPassword)) {
+                $this->addErrorMessage('All fields are required.');
+                return $this->render('views/users/editprofile.php');
+            }
+
+            if ($newPassword !== $confirmNewPassword) {
+                $this->addErrorMessage('New passwords do not match.');
+                return $this->render('views/users/editprofile.php');
+            }
+
+            if (!password_verify($currentPassword, $user['password'])) {
+                $this->addErrorMessage('Current password is incorrect.');
+                return $this->render('views/users/editprofile.php');
+            }
+
+            $user['password'] = password_hash($newPassword, PASSWORD_DEFAULT);
+            Users::UpdateUserPassword($user);
+
+            return $this->redirect('/site/updatesuccess');
+        }
+
+        return $this->render('views/users/editprofile.php');
     }
 
     public function actionProfile()

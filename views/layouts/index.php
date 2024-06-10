@@ -1,6 +1,5 @@
 <?php
 /** @var string $Title */
-
 /** @var string $Content */
 
 use models\Users;
@@ -56,6 +55,7 @@ $core = core\Core::get();
                         </a>
                         <ul class="dropdown-menu text-small z-10000">
                             <li><a class="dropdown-item" href="/news/add">Add News</a></li>
+                            <li><a class="dropdown-item" href="/news/mynews">Browse My News</a></li>
                             <li><a class="dropdown-item" href="/users/profile">Profile</a></li>
                             <li>
                                 <hr class="dropdown-divider">

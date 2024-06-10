@@ -23,4 +23,8 @@ class SiteController extends Controller
     {
         return $this->render();
     }
+    public function actionUpdateSuccess()
+    {
+       return $this->render();
+    }
 }
