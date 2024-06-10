@@ -74,13 +74,47 @@ $core = core\Core::get();
 <div class="container">
     <?= $Content ?>
 </div>
-<div class="container">
-    <footer class="py-3 my-4">
-        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-            <li class="nav-item"><a class="nav-link px-2 text-body-secondary">Course Work #3. PHP 'The News Portal Of The Village Council' CMS</li>
-        </ul>
-        <p class="text-center text-body-secondary">© 2024 Adam Lahovskyi</p>
-    </footer>
-</div>
+<br>
+<footer class="bg-light py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h5 class="mb-3">Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="/" class="text-body text-decoration-none">Main Page</a></li>
+                    <li><a href="/news/todayslatestnews" class="text-body text-decoration-none">Latest News</a></li>
+                    <li><a href="/news/featured" class="text-body text-decoration-none">Featured News</a></li>
+                    <?php if (!Users::IsUserLogged()) : ?>
+                        <li><a href="/users/login" class="text-body text-decoration-none">Sign In</a></li>
+                        <li><a href="/users/register" class="text-body text-decoration-none">Sign Up</a></li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h5 class="mb-3">User Services</h5>
+                <ul class="list-unstyled">
+                    <?php if (Users::IsUserLogged()) : ?>
+                        <?php if (Users::IsUserAdmin()) : ?>
+                            <li><a href="/news/add" class="text-body text-decoration-none">Add News</a></li>
+                            <li><a href="/users/adminpanel" class="text-body text-decoration-none">Admin Panel</a></li>
+                        <?php endif; ?>
+                        <li><a href="/news/mynews" class="text-body text-decoration-none">Browse My News</a></li>
+                        <li><a href="/users/profile" class="text-body text-decoration-none">Profile</a></li>
+                        <li><a href="/users/logout" class="text-body text-decoration-none">Log Out</a></li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h5 class="mb-3">Contact</h5>
+                <p class="text-body-secondary">10010, Zhytomyr, Ukraine</p>
+                <p class="text-body-secondary">postofadam@gmail.com</p>
+            </div>
+        </div>
+        <hr class="my-4">
+        <p class="text-center text-body-secondary">© 2024 Adam Lahovskyi. All rights reserved.</p>
+    </div>
+</footer>
+
+
 </body>
 </html>
