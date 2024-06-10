@@ -177,6 +177,16 @@ class UsersController extends Controller
             return $this->redirect('/');
         }
     }
+    public function actionDeleteProfile()
+    {
+        $user = Users::GetLoggedInUser();
+        if ($user) {
+            Users::DeleteUser($user['id']);
+            Users::LogoutUser();
+            return $this->redirect('/site/updatesuccess');
+        }
+        return $this->redirect('/users/login');
+    }
     public function actionLogout()
     {
         Users::LogoutUser();

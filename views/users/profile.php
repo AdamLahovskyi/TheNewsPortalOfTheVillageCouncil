@@ -11,6 +11,7 @@ $user = Users::GetLoggedInUser();
             <div class="card">
                 <div class="card-header">
                     <h3 class="mb-0">My Profile</h3>
+                    <h3 class="mb-0">Role: <?php echo htmlspecialchars($user['role']); ?></h3>
                 </div>
                 <div class="card-body">
                     <div class="form-group row mb-3">
@@ -37,6 +38,9 @@ $user = Users::GetLoggedInUser();
                     <div class="col-sm-12 text-center">
                         <a href="/users/logout" class="btn btn-primary">Log Out</a>
                         <a href="/users/editprofile" class="btn btn-primary">Edit Profile</a>
+                        <form action="/users/deleteprofile" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Delete Profile</button>
+                        </form>
                     </div>
                 </div>
             </div>

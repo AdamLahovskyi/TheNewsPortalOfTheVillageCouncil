@@ -100,6 +100,11 @@ class Users extends \core\Model
         $db = Core::get()->db;
         $db->update(self::$tableName, ['role' => 'admin'], ['id' => $userId]);
     }
+    public static function DeleteUser($id)
+    {
+        $db = Core::get()->db;
+        $db->delete(self::$tableName, ['id' => $id]);
+    }
     public static function LogoutUser()
     {
         Core::get()->session->remove('user');
