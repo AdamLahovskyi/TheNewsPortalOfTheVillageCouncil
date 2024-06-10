@@ -33,7 +33,7 @@ $newsItem = $core->db->selectById('news', $id, '*');
             <?php endif; ?>
             <a href="/" class="btn btn-primary mt-3">Back to News</a>
             <?php
-            if(Users::IsUserLogged() && $newsItem['posted_by'] == Users::GetLoggedInUser()['login']):?>
+            if(Users::IsUserAdmin()):?>
                 <a href="/news/editnews/<?php echo $id; ?>" class="btn btn-primary mt-3">Edit</a>
             <?php endif; ?>
 

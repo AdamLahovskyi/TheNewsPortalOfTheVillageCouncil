@@ -82,6 +82,7 @@ class UsersController extends Controller
             $password2 = $this->post->password2 ?? '';
             $firstname = $this->post->firstname ?? '';
             $lastname = $this->post->lastname ?? '';
+            $role = 'user';
 
             if (empty($login)) {
                 $this->addErrorMessage('Login Can`t Be Empty');
@@ -112,7 +113,7 @@ class UsersController extends Controller
                 $this->addErrorMessage('Lastname Can`t Be Empty');
             }
             if (!$this->isErrorMessagesExists()) {
-                Users::RegisterUser($this->post->login, $this->post->password, $this->post->lastname, $this->post->firstname);
+                Users::RegisterUser($this->post->login, $this->post->password, $this->post->lastname, $this->post->firstname, $role);
                 Images::RegisterImage($this->post->picture, $this->post->news_id, 'pfp');
                 return $this->redirect('/site/updatesuccess');
             }
@@ -168,7 +169,14 @@ class UsersController extends Controller
     {
         return $this->render();
     }
-
+    public function actionAdminPanel()
+    {
+        if (Users::IsUserAdmin()){
+            return $this->render();
+        }else{
+            return $this->redirect('/');
+        }
+    }
     public function actionLogout()
     {
         Users::LogoutUser();

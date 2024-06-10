@@ -54,7 +54,10 @@ $core = core\Core::get();
                                  class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu text-small z-10000">
+                            <?php if (Users::IsUserAdmin()) : ?>
                             <li><a class="dropdown-item" href="/news/add">Add News</a></li>
+                            <li><a class="dropdown-item" href="/users/adminpanel">Admin Panel</a></li>
+                            <?php endif; ?>
                             <li><a class="dropdown-item" href="/news/mynews">Browse My News</a></li>
                             <li><a class="dropdown-item" href="/users/profile">Profile</a></li>
                             <li>

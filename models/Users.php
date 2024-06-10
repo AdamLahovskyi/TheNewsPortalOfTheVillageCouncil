@@ -13,6 +13,7 @@ use models\Images;
  * @property string $password password
  * @property string $firstname firstname
  * @property string $lastname lastname
+ * @property string $role role
  */
 class Users extends \core\Model
 {
@@ -67,6 +68,16 @@ class Users extends \core\Model
     {
         return !empty(Core::get()->session->get('user'));
     }
+    public static function IsUserAdmin()
+    {
+        $user = Core::get()->session->get('user');
+        if (isset($user) && isset($user['role']) && $user['role'] == 'admin') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static function LoginUser($user)
     {
         Core::get()->session->set('user', (array)$user);
@@ -78,12 +89,22 @@ class Users extends \core\Model
             'password' => $user['password']
         ], ['id' => $user['id']]);
     }
+    public static function GetAllUsersWithRoleUser()
+    {
+        $db = Core::get()->db;
+        return $db->select(self::$tableName, '*', ['role' => 'user']);
+    }
 
+    public static function PromoteUserToAdmin($userId)
+    {
+        $db = Core::get()->db;
+        $db->update(self::$tableName, ['role' => 'admin'], ['id' => $userId]);
+    }
     public static function LogoutUser()
     {
         Core::get()->session->remove('user');
     }
-    public static function RegisterUser($login, $password, $lastname, $firstname)
+    public static function RegisterUser($login, $password, $lastname, $firstname, $role)
     {
         $user = new Users();
         $image = new Images();
@@ -91,6 +112,7 @@ class Users extends \core\Model
         $user->password=password_hash($password, PASSWORD_DEFAULT);
         $user->lastname=$lastname;
         $user->firstname=$firstname;
+        $user->role = 'user';
         $user->save();
     }
     public static function GetLoggedInUser()
