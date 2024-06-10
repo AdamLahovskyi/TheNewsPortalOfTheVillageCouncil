@@ -4,8 +4,6 @@ use models\Users;
 
 $this->Title = 'Profile';
 $user = Users::GetLoggedInUser();
-
-var_dump($user);
 ?>
 <div class="container mt-5">
     <div class="row justify-content-center">

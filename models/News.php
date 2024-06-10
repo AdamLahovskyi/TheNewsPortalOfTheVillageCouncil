@@ -39,4 +39,10 @@ class News extends Model
             'isFeatured' => $news['isFeatured'],
         ], ['id' => $news['id']]);
     }
+    public static function deleteNews($id)
+    {
+        $db = Core::get()->db;
+        $db->delete(self::$tableName, ['id' => $id]);
+    }
+
 }

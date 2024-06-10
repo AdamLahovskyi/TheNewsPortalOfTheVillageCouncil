@@ -6,7 +6,6 @@ $core = core\Core::get();
 $this->Title='News Archive';
 var_dump($_GET);
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
-var_dump($page);
 
 ?>
 <div class="container">

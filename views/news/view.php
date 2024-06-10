@@ -13,6 +13,10 @@ $newsItem = $core->db->selectById('news', $id, '*');
                     <h2 class="post-title">
                         <?php echo htmlspecialchars($newsItem['title']); ?>
                     </h2>
+                    <div class="image-container d-flex justify-content-center">
+                        <img src="/files/newstemplateimage.jpg" class="img-thumbnail" alt="News Image" style="width: 50%">
+                    </div>
+                    <div class="divider"></div>
                     <p class="post-subtitle">
                         <?php echo htmlspecialchars($newsItem['text']); ?>
                     </p>
@@ -29,9 +33,8 @@ $newsItem = $core->db->selectById('news', $id, '*');
             <?php endif; ?>
             <a href="/" class="btn btn-primary mt-3">Back to News</a>
             <?php
-            if(Users::IsUserLogged() && $newsItem['posted_by'] == Users::GetLoggedInUser()['login']): // Check if user is logged in and news belongs to the logged-in user
-                ?>
-                <a href="/news/editnews/<?php echo $id; ?>" class="btn btn-primary mt-3">Edit</a> <!-- Link to the news edit page -->
+            if(Users::IsUserLogged() && $newsItem['posted_by'] == Users::GetLoggedInUser()['login']):?>
+                <a href="/news/editnews/<?php echo $id; ?>" class="btn btn-primary mt-3">Edit</a>
             <?php endif; ?>
 
         </div>

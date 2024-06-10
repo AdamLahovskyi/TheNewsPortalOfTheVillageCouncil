@@ -86,14 +86,20 @@ class NewsController extends Controller
     {
         return $this->render();
     }
+    public function actionDeleteNews()
+    {
+        if ($this->isPost) {
+            $newsId = (int)$this->post->id;
+            News::deleteNews($newsId);
+        }
+        return $this->render();
+    }
 
     public function actionUpdateNews()
     {
-        var_dump(Core::get()->controllerObject->post);
         if ($this->isPost) {
             $this->clearErrorMessage();
             $newsId = $this->post->id;
-            var_dump($newsId);
             if ($newsId === null) {
                 $this->addErrorMessage('News ID is missing.');
                 return $this->render();

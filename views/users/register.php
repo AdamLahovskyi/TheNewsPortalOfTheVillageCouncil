@@ -1,6 +1,7 @@
 <?php
 /** @var string $error_message Error Message*/
 $this->Title = 'Sign Up';
+
 ?>
 <form method="post" action="">
     <?php if (!empty($error_message)) : ?>

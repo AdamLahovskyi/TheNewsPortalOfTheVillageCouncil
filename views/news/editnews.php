@@ -12,8 +12,8 @@ try {
 var_dump($newsItem);
 ?>
 
-<form action="/news/updatenews" method="POST" >
-    <input type="hidden" name="id" value="<?=$newsItem['id'] ?>">
+<form action="/news/updatenews" method="POST">
+    <input type="hidden" name="id" value="<?= $newsItem['id'] ?>">
     <?php if (!empty($error_message)) : ?>
         <div class="alert alert-danger" role="alert">
             <?= $error_message ?>
@@ -39,6 +39,17 @@ var_dump($newsItem);
             <option value="1" <?php if ($newsItem['isFeatured'] == 1) echo "selected"; ?>>Yes</option>
         </select>
     </div>
-    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <div class="mb-3">
+        <div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+    </div>
 </form>
-
+<form action="/news/deletenews" method="POST">
+    <div class="mb-3">
+        <div>
+            <input type="hidden" name="id" value="<?= $newsItem['id'] ?>">
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+    </div>
+</form>

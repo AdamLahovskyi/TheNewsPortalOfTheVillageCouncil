@@ -49,14 +49,10 @@ class Router
     }
     public function error($code): void
     {
+        $controller = new Controller;
         http_response_code($code);
-        switch ($code){
-            case 404:
-                echo '404 Not Found';
-                break;
-            case 403:
-                echo '403 Forbidden';
-                break;
+        if($code){
+            $controller->redirect('/site/error');
         }
     }
 }

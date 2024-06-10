@@ -21,6 +21,6 @@ class SiteController extends Controller
     }
     public function actionError($code)
     {
-        echo $code;
+        return $this->render();
     }
 }

@@ -107,7 +107,7 @@ class DB
     public function delete($table, $where)
     {
         $where_string = $this->where($where);
-        $sql = "DELETE FROM {$table} {$where_string}";
+        $sql = "DELETE FROM {$table} WHERE {$where_string}";
         $sth = $this->pdo->prepare($sql);
         foreach ($where as $key => $value) {
             $sth->bindValue(":{$key}", $value);
@@ -115,6 +115,7 @@ class DB
         $sth->execute();
         return $sth->rowCount();
     }
+
 
     public function update($table, $row_to_update, $where)
     {
